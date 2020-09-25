@@ -7,7 +7,7 @@ import com.faizan.myexpenses.DataLayer.model.Credits;
 
 public class MainViewModel extends ViewModel {
 
-    private MutableLiveData<Credits> creditsMutableLiveData  = new MutableLiveData<>();
+    private MutableLiveData<Credits> creditsMutableLiveData = new MutableLiveData<>();
 
     public MutableLiveData<Credits> getCreditsMutableLiveData() {
         return creditsMutableLiveData;

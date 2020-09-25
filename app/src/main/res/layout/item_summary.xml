@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:id="@+id/parent_layout">
+
+        <TextView
+            android:id="@+id/tv_expense_of_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/expense_of"
+            android:gravity="start"
+            android:layout_weight="1.4"
+            />
+
+        <TextView
+            android:id="@+id/tv_amount_summary_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/amount"
+            android:layout_weight=".6"
+            />
+
+    </LinearLayout>
+
+</layout>

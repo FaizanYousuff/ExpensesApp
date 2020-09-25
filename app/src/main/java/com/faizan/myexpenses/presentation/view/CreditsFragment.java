@@ -2,6 +2,10 @@ package com.faizan.myexpenses.presentation.view;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,21 +16,24 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.faizan.myexpenses.DataLayer.model.Credits;
 import com.faizan.myexpenses.ExpenseApplication;
 import com.faizan.myexpenses.R;
+import com.faizan.myexpenses.Utils.Constants;
+import com.faizan.myexpenses.Utils.DialogUtils;
+import com.faizan.myexpenses.logger.Logger;
 import com.faizan.myexpenses.presentation.adapter.CreditsListAdapter;
+import com.faizan.myexpenses.presentation.listener.DialogListener;
+import com.faizan.myexpenses.presentation.listener.OnItemClickListener;
 import com.faizan.myexpenses.presentation.viewmodel.CreditsViewModel;
 import com.faizan.myexpenses.presentation.viewmodel.MainViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+
+import static com.faizan.myexpenses.Utils.Constants.AUTHOR;
+import static com.faizan.myexpenses.Utils.Constants.PENDING_CREDIT;
+import static com.faizan.myexpenses.Utils.Constants.PENDING_DEBITS;
 
 public class CreditsFragment extends Fragment {
 
@@ -35,12 +42,8 @@ public class CreditsFragment extends Fragment {
     private CreditsViewModel creditsViewModel;
     private MainViewModel mainViewModel;
     private BaseActivity baseActivity;
-
-
-    public static final int ADD_NOTE_REQUEST = 1;
-    public static final int EDIT_NOTE_REQUEST = 2;
     private FloatingActionButton floatingActionButton;
-    private TextView pendingCredits,pendingDebits;
+    private TextView pendingCredits, pendingDebits;
     private int totalDebits;
     private int totalCredits;
     private Dialog dialog;
@@ -48,9 +51,9 @@ public class CreditsFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        creditsViewModel =new CreditsViewModel(ExpenseApplication.getAppContext());
+        creditsViewModel = new CreditsViewModel(ExpenseApplication.getAppContext());
         mainViewModel = ViewModelProviders.of(this.getActivity()).get(MainViewModel.class);
-        baseActivity = ((BaseActivity)getActivity());
+        baseActivity = ((BaseActivity) getActivity());
 
     }
 
@@ -75,7 +78,8 @@ public class CreditsFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             baseActivity.switchFragments(new AddEditCreditsFragment());
+                mainViewModel.setCreditsMutableLiveData(null);
+                baseActivity.switchFragments(new AddEditCreditsFragment(), Constants.EDIT_FRAG);
             }
         });
 
@@ -90,24 +94,32 @@ public class CreditsFragment extends Fragment {
             public void onChanged(@Nullable List<Credits> credits) {
                 // update RecyclerView
 
-            /*    updateTotals(credits);
-                Logger.debug(TAG,"Total Credits "+totalCredits);
-                Logger.debug(TAG,"Total debits "+totalDebits);
+                updateTotals(credits);
+                Logger.debug(TAG, "Total Credits " + totalCredits);
+                Logger.debug(TAG, "Total debits " + totalDebits);
 
-                pendingCredits.setText(PENDING_CREDIT+totalCredits);
-                pendingDebits.setText(PENDING_DEBITS+totalDebits);*/
+                pendingCredits.setText(PENDING_CREDIT + totalCredits);
+                pendingDebits.setText(PENDING_DEBITS + totalDebits);
+                Credits dummyCredit = new Credits();
+                dummyCredit.setId(0);
+                dummyCredit.setTo("Amount Given TO");
+                dummyCredit.setFrom("Amount From");
+                dummyCredit.setAmount("Amount");
+                dummyCredit.setDescription("Description");
+                dummyCredit.setDate("Date");
+                credits.add(0, dummyCredit);
                 creditsAdapter.setCredits(credits);
             }
         });
 
         // For EDITING CARD VIEW
-        creditsAdapter.setOnItemClickLitener(new CreditsListAdapter.onItemClickLitener() {
+        creditsAdapter.setOnItemClickLitener(new OnItemClickListener() {
             @Override
-            public void onItemClick(Credits credits) {
-                mainViewModel.setCreditsMutableLiveData(credits);
-                baseActivity.switchFragments(new AddEditCreditsFragment());
-
+            public void onItemClick(Object... params) {
+                mainViewModel.setCreditsMutableLiveData((Credits) params[0]);
+                baseActivity.switchFragments(new AddEditCreditsFragment(), Constants.EDIT_FRAG);
             }
+
         });
 
         // For Swiping Options
@@ -119,12 +131,39 @@ public class CreditsFragment extends Fragment {
             }
 
             @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-               // showPasswordDialog(creditsAdapter.getCredit(viewHolder.getAdapterPosition()));
+            public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
+
+                DialogUtils.getInstance().showPasswordDialog(new DialogListener() {
+
+                    @Override
+                    public void okPressed(Object... params) {
+                        creditsViewModel.deleteCredit(creditsAdapter.getCredit(viewHolder.getAdapterPosition()));
+
+                    }
+
+                    @Override
+                    public void cancelPressed() {
+
+                    }
+                });
             }
         }).attachToRecyclerView(recyclerView);
 
 
         return fragmentView;
+    }
+
+    private void updateTotals(List<Credits> creditsList) {
+        Logger.debug(TAG, creditsList.size() + "");
+        totalDebits = 0;
+        totalCredits = 0;
+
+        for (int i = 0; i < creditsList.size(); i++) {
+            if (creditsList.get(i).getFrom().equalsIgnoreCase(AUTHOR)) {
+                totalCredits += Integer.parseInt(creditsList.get(i).getAmount());
+            } else {
+                totalDebits += Integer.parseInt(creditsList.get(i).getAmount());
+            }
+        }
     }
 }

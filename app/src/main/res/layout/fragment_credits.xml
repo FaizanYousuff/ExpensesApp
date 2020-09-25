@@ -5,12 +5,48 @@
     android:layout_height="match_parent"
     tools:context=".presentation.view.CreditsFragment">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/credit_debit_list"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_pending_credit"
+        android:textSize="20sp"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/title"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text_pending_debit"
+        android:textSize="20sp"
+        android:textColor="@color/colorBlack"
+        android:layout_below="@id/text_pending_credit"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recycler_view"
-        tools:listitem="@layout/credits_item"
+        tools:listitem="@layout/item_credits"
         android:layout_below="@id/text_pending_debit"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
@@ -21,21 +57,6 @@
         android:layout_margin="32dp"
         android:id="@+id/btn_add_credit"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_pending_credit"
-        android:textSize="20sp"
-        android:textColor="@color/colorBlack"
-        />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_pending_debit"
-        android:textSize="20sp"
-        android:textColor="@color/colorBlack"
-        android:layout_below="@id/text_pending_credit"
-        />
 
 </RelativeLayout>

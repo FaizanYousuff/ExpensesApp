@@ -1,11 +1,10 @@
 package com.faizan.myexpenses.DataLayer.model;
 
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.faizan.myexpenses.Constants;
+import com.faizan.myexpenses.Utils.Constants;
 
 @Entity(tableName = "credits_table")
 public class Credits {

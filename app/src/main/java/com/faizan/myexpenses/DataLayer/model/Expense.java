@@ -1,10 +1,15 @@
 package com.faizan.myexpenses.DataLayer.model;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "expense_table")
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "expense_table" ,foreignKeys = @ForeignKey(entity = MonthlyExpense.class,
+        parentColumns = "monthNumber", childColumns = "expenseOfMonth",onDelete = CASCADE))
 public class Expense {
 
     @PrimaryKey(autoGenerate = true)
@@ -14,10 +19,18 @@ public class Expense {
     private String amount;
 
     @NonNull
-    private String type;
+    private String expenseOf;
 
     @NonNull
     private String date;
+
+    private String description;
+
+    @NonNull
+    private String expenseOfMonth;
+
+    @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
+    private byte[] image;
 
 
     @NonNull
@@ -30,12 +43,12 @@ public class Expense {
     }
 
     @NonNull
-    public String getType() {
-        return type;
+    public String getExpenseOf() {
+        return expenseOf;
     }
 
-    public void setType(@NonNull String type) {
-        this.type = type;
+    public void setExpenseOf(@NonNull String expenseOf) {
+        this.expenseOf = expenseOf;
     }
 
     @NonNull
@@ -53,5 +66,30 @@ public class Expense {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    @NonNull
+    public String getExpenseOfMonth() {
+        return expenseOfMonth;
+    }
+
+    public void setExpenseOfMonth(@NonNull String expenseOfMonth) {
+        this.expenseOfMonth = expenseOfMonth;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

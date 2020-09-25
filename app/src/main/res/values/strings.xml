@@ -1,5 +1,40 @@
 <resources>
     <string name="app_name">My Expenses</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Under Construction</string>
+
+
+    <string name="enter_password_str">please enter password</string>
+    <string name="monthly_expense_list">Monthly Expenses List</string>
+    <string name="expense_of">Expense of</string>
+    <string name="summary"> Summary </string>
+    <string name="amount">Amount</string>
+    <string name="Rs">\u20B9 </string>
+    <string name="description">Description : </string>
+    <string name="expenseOf">Expense of : </string>
+    <string name="dateOfExpense">Date : </string>
+
+
+    <!-- Expense Dialog -->
+    <string name="add">ADD</string>
+    <string name="cancel">Cancel</string>
+    <string name="date">Date </string>
+    <string name="upload_image">Upload Image</string>
+
+
+    <string name="Expenses_of">Expenses of </string>
+
+    <string name="add_edit_credits">Add/Edit Credits</string>
+    <string name="credit_debit_list">Credit/Debit List</string>
+    <string name="other_expense_list">Other Expense List</string>
+
+    <string name="menuItemsList">My Dashboard</string>
+
+    <!-- Other Expenses -->
+    <string name="expense_name">Expense Name</string>
+    <string name="spent_amt">Spent Amount</string>
+    <string name="remaining_amt">Remaining Amount</string>
+    <string name="expense_description">Expense Description</string>
+
+
 </resources>

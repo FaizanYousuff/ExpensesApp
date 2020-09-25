@@ -6,5 +6,15 @@
 
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorRed">#CC0101</color>
+    <color name="colorGreen">#13A603</color>
+
+    <color name="colorOrange">#f58733</color>
+    <color name="colorBlue">#3a4499</color>
+    <color name="keyboard_background_color">#cccccc</color>
+    <color name="colorDarkGray">#666666</color>
+    <color name="colorLightGray">#cccccc</color>
+    <color name="new_blue_color">#1971de</color>
+    <color name="colorTitleBg">#FF4949</color>
 
 </resources>

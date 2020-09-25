@@ -2,9 +2,11 @@ package com.faizan.myexpenses.DataLayer.database.dao;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.faizan.myexpenses.DataLayer.model.Credits;
 
@@ -18,4 +20,11 @@ public interface CreditsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertCredit(Credits ... credits);
+
+    @Delete
+    void deleteCredits(Credits credits);
+
+    @Update
+    void updateCredits(Credits credits);
+
 }

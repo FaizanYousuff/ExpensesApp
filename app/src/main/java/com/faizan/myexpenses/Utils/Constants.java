@@ -10,7 +10,7 @@ public class Constants {
     public final static String EDIT_FRAG = "edit";
     public final static String SETTING_FRAG = "setting";
     public final static String HOME_FRAG = "home";
-    public final static String CREDIT_FRAG = "credits";
+    public final static String CREDIT_LIST_FRAG = "credits";
     public final static String OTHER_EXPENSE = "otherExpenses";
 
     public final static String EXPENSES_FRAG = "expenses";

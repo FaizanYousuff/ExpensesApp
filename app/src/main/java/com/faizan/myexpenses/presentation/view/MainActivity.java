@@ -32,7 +32,7 @@ public class MainActivity extends BaseActivity {
                         break;
 
                     case R.id.nav_credits:
-                        switchFragments(new CreditsFragment(), Constants.CREDIT_FRAG);
+                        switchFragments(new CreditsFragment(), Constants.CREDIT_LIST_FRAG);
                         break;
                     case R.id.nav_expenses:
                         switchFragments(new ExpensesListFragment(), Constants.M_EXPENSES_FRAG);

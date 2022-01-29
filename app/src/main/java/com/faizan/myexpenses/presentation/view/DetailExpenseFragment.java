@@ -40,6 +40,7 @@ public class DetailExpenseFragment extends BaseFragment {
     private ExpenseListAdapter expenseListAdapter;
     private RecyclerView rvExpenses;
     private RecyclerView rvSummary;
+    private   FloatingActionButton fab;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,8 @@ public class DetailExpenseFragment extends BaseFragment {
         rvExpenses = fragmentView.findViewById(R.id.rv_expenses);
         rvExpenses.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvExpenses.setHasFixedSize(true);
+
+        fab = fragmentView.findViewById(R.id.btn_add_expense);
 
         /*detailExpenseBinding.rvExpenses.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
             @Override
@@ -130,25 +133,27 @@ public class DetailExpenseFragment extends BaseFragment {
         });
 
         // For EDITING CARD VIEW
-        expenseListAdapter.setOnItemClickLitener(new OnItemClickListener() {
-                                                     @Override
-                                                     public void onItemClick(Object... params) {
-                                                         DialogUtils.getInstance().addExpenseDialog((Expense) params[0], new DialogListener() {
-                                                             @Override
-                                                             public void okPressed(Object... params) {
+        expenseListAdapter.setOnItemClickLitener(
+                new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Object... params) {
 
-                                                                 expenseDViewModel.updateExpensesM((Expense) params[0]);
+                        DialogUtils.getInstance().addExpenseDialog((Expense) params[0], new DialogListener() {
+                            @Override
+                            public void okPressed(Object... params) {
 
-                                                             }
+                                expenseDViewModel.updateExpensesM((Expense) params[0]);
 
-                                                             @Override
-                                                             public void cancelPressed() {
+                            }
 
-                                                             }
-                                                         });
-                                                     }
+                            @Override
+                            public void cancelPressed() {
 
-                                                 }
+                            }
+                        });
+                    }
+
+                }
         );
 
 
@@ -160,12 +165,13 @@ public class DetailExpenseFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-        final Expense expense = new Expense();
-        expense.setExpenseOfMonth(String.valueOf(monthNumber));
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.btn_add_expense);
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Expense expense = new Expense();
+                expense.setExpenseOfMonth(String.valueOf(monthNumber));
                 DialogUtils.getInstance().addExpenseDialog(expense, new DialogListener() {
                     @Override
                     public void okPressed(Object... params) {

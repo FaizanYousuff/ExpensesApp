@@ -1,5 +1,7 @@
 package com.faizan.myexpenses.presentation.view;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -39,5 +41,9 @@ public class BaseActivity extends AppCompatActivity {
         // if we pass second argument as zero it will pop all fragments
 
         fm.popBackStack(stackName, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    public void popBackStack(){
+        getSupportFragmentManager().popBackStack();
     }
 }

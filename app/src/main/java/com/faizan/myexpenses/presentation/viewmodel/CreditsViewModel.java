@@ -52,12 +52,14 @@ public class CreditsViewModel extends ViewModel {
             @Override
             public void onComplete() {
                 Logger.debug(TAG, "  insertCredit onComplete");
-                baseActivity.switchFragments(Constants.HOME_FRAG);
+                // baseActivity.switchFragments(Constants.CREDIT_LIST_FRAG);
+                baseActivity.popBackStack();
 
             }
 
             @Override
             public void onError(Throwable e) {
+                Logger.error(TAG ,"Failed to Insert " +e.getMessage());
                 Toast.makeText(context, "Failed to Insert", Toast.LENGTH_SHORT).show();
 
             }

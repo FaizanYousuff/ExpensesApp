@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
                         break;
 
                     case Constants.CREDIT_LIST:
-                        baseActivity.switchFragments(new CreditsFragment(), Constants.CREDIT_FRAG);
+                        baseActivity.switchFragments(new CreditsFragment(), Constants.CREDIT_LIST_FRAG);
                         break;
 
                     case Constants.OTHER_EXPENSES:

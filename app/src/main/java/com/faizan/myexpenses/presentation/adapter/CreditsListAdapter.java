@@ -57,6 +57,19 @@ public class CreditsListAdapter extends RecyclerView.Adapter<CreditsListAdapter.
                 creditsHolder.tv_date.setTextColor(Color.WHITE);
                 creditsHolder.tv_date.setTypeface(Typeface.DEFAULT);
                 creditsHolder.bgLayout.setBackgroundColor(ContextProvider.getInstance().getActivity().getResources().getColor(R.color.colorOrange));
+            } else  {
+                creditsHolder.amount.setTextColor(Color.BLACK);
+                creditsHolder.amount.setTypeface(Typeface.DEFAULT);
+                creditsHolder.tv_description.setTextColor(Color.BLACK);
+                creditsHolder.tv_description.setTypeface(Typeface.DEFAULT);
+                creditsHolder.tv_to.setTextColor(Color.BLACK);
+                creditsHolder.tv_to.setTypeface(Typeface.DEFAULT);
+                creditsHolder.tv_from.setTextColor(Color.BLACK);
+                creditsHolder.tv_from.setTypeface(Typeface.DEFAULT);
+                creditsHolder.tv_date.setTextColor(Color.BLACK);
+                creditsHolder.tv_date.setTypeface(Typeface.DEFAULT);
+                creditsHolder.bgLayout.setBackgroundColor(ContextProvider.getInstance().getActivity().getResources().getColor(R.color.colorWhite));
+
             }
         } else {
             // Covers the case of data not being ready yet.

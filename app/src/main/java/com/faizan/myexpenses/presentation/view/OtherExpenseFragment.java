@@ -156,7 +156,7 @@ public class OtherExpenseFragment extends BaseFragment {
                     public void cancelPressed() {
 
                     }
-                });
+                },false);
             }
         }).attachToRecyclerView(recyclerView);
 

@@ -215,7 +215,7 @@ public class DetailExpenseFragment extends BaseFragment {
                     public void cancelPressed() {
 
                     }
-                });
+                },false);
             }
         }).attachToRecyclerView(rvExpenses);
     }

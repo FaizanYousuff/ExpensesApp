@@ -132,15 +132,15 @@ public class AddEditCreditsFragment extends Fragment {
             return;
         }
         Credits credits = new Credits();
-        credits.setAmount(addEditCreditsBinding.etAmount.getText().toString());
-        credits.setDate(addEditCreditsBinding.etDate.getText().toString());
-        credits.setDescription(addEditCreditsBinding.etDescription.getText().toString());
-        credits.setFrom(addEditCreditsBinding.etFrom.getText().toString());
-        credits.setTo(addEditCreditsBinding.etTo.getText().toString());
+        credits.setAmount(addEditCreditsBinding.etAmount.getText().toString().trim());
+        credits.setDate(addEditCreditsBinding.etDate.getText().toString().trim());
+        credits.setDescription(addEditCreditsBinding.etDescription.getText().toString().trim());
+        credits.setFrom(addEditCreditsBinding.etFrom.getText().toString().trim());
+        credits.setTo(addEditCreditsBinding.etTo.getText().toString().trim());
         credits.setId(id);
 
         if (isEdit) {
-            creditsViewModel.updateCredits(credits);
+            creditsViewModel.updateCredits(credits,baseActivity);
         } else {
             creditsViewModel.insertCredit(credits, baseActivity);
         }

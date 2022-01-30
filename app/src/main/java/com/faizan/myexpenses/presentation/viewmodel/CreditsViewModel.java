@@ -82,6 +82,7 @@ public class CreditsViewModel extends ViewModel {
 
             @Override
             public void onComplete() {
+                Toast.makeText(context, "Deleted Credit Successfully", Toast.LENGTH_SHORT).show();
                 Logger.debug(TAG, "  deleteCredit onComplete");
             }
 
@@ -93,7 +94,7 @@ public class CreditsViewModel extends ViewModel {
     }
 
 
-    public void updateCredits(final Credits credits) {
+    public void updateCredits(final Credits credits,final BaseActivity baseActivity) {
 
         Completable.fromAction(new Action() {
             @Override
@@ -108,6 +109,7 @@ public class CreditsViewModel extends ViewModel {
 
             @Override
             public void onComplete() {
+                baseActivity.popBackStack();
                 Logger.debug(TAG, "  updateCredits onComplete");
             }
 

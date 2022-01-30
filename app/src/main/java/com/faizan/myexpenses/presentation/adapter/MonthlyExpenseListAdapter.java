@@ -16,6 +16,7 @@ import com.faizan.myexpenses.DataLayer.model.MonthlyExpense;
 import com.faizan.myexpenses.R;
 import com.faizan.myexpenses.Utils.Constants;
 import com.faizan.myexpenses.Utils.ContextProvider;
+import com.faizan.myexpenses.Utils.PreferenceHelper;
 import com.faizan.myexpenses.Utils.ThreadPoolService;
 import com.faizan.myexpenses.Utils.Utils;
 import com.faizan.myexpenses.presentation.listener.DialogListener;
@@ -92,10 +93,14 @@ public class MonthlyExpenseListAdapter extends RecyclerView.Adapter<MonthlyExpen
 
     private String returnSavedAmount(String amount) {
 
-        if (isAuthenticated) {
-            return amount;
+        if(PreferenceHelper.getInstance(ContextProvider.getInstance().getActivity()).getBoolean(Constants.ENABLE_INCOME_MASKING,false)){
+            if (isAuthenticated) {
+                return amount;
+            } else {
+                return Utils.getMaskedString(amount);
+            }
         } else {
-            return Utils.getMaskedString(amount);
+            return amount;
         }
     }
 

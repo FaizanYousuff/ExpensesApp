@@ -26,4 +26,9 @@ public class Constants {
     public final static String SETTINGS = "Settings";
     public final static String CREDIT_LIST = "Credit List";
 
+    // Shared preference constants
+    public static final String ENABLE_INCOME_MASKING = "ENABLE_INCOME_MASKING";
+    public static final String ENABLE_PASSWORD_FOR_DELETING = "ENABLE_PASSWORD_FOR_DELETING";
+    public static final String PASSWORD_FOR_DELETING = "PASSWORD_FOR_DELETING";
+
 }

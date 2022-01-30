@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.biometric.BiometricConstants;
 import androidx.biometric.BiometricPrompt;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -84,6 +86,32 @@ public class ExpensesListFragment extends BaseFragment {
             }
         });
 
+        // For Swiping Options
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
+                ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
+
+                DialogUtils.getInstance().showPasswordDialog(new DialogListener() {
+
+                    @Override
+                    public void okPressed(Object... params) {
+                        expenseMViewModel.deleteExpenseM(adapter.getMonthlyExpenses(viewHolder.getAdapterPosition()));
+                    }
+
+                    @Override
+                    public void cancelPressed() {
+
+                    }
+                },false);
+            }
+        }).attachToRecyclerView(recyclerView);
+
         adapter.setOnItemClickLitener(new OnItemClickListener() {
             @Override
             public void onItemClick(Object... params) {
@@ -131,14 +159,27 @@ public class ExpensesListFragment extends BaseFragment {
             public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                 super.onAuthenticationError(errorCode, errString);
                 Logger.error(TAG, "An onAuthenticationError error occurred " + errorCode + " " + errString);
-               /* if (errorCode == BiometricConstants.ERROR_USER_CANCELED || errorCode == BiometricConstants.ERROR_NEGATIVE_BUTTON) {
+                if (errorCode == BiometricConstants.ERROR_USER_CANCELED ||
+                        errorCode == BiometricConstants.ERROR_NEGATIVE_BUTTON || errorCode == BiometricConstants.ERROR_NO_BIOMETRICS
+                || errorCode == BiometricConstants.ERROR_HW_NOT_PRESENT ) {
                     // User canceled the operation
 
                     // you can either show the dialog again here
 
                     // or use alternate authentication (e.g. a password) - recommended wayD
-                    navigateToPinPrompt();
-                }*/
+                   // navigateToPinPrompt();
+                    DialogUtils.getInstance().showPasswordDialog(new DialogListener() {
+                        @Override
+                        public void okPressed(Object... params) {
+                            listener.okPressed();
+                        }
+
+                        @Override
+                        public void cancelPressed() {
+                            listener.cancelPressed();
+                        }
+                    },false);
+                }
                 listener.cancelPressed();
 
             }

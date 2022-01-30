@@ -34,7 +34,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="32dp"
-        android:id="@+id/btn_add_OtherExpense"/>
+        android:id="@+id/btn_add_OtherExpense"
+        android:backgroundTint="@color/colorOrange"/>
 </RelativeLayout>
 
 

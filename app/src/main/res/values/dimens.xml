@@ -17,6 +17,7 @@
     <dimen name="custom_dialog_corner_radius">20dp</dimen>
     <dimen name="tid_edit_text_corner_radius">5dp</dimen>
     <dimen name="tid_edit_text_border_width">2dp</dimen>
+    <dimen name="switch_button_padding">18dp</dimen>
 
 
 </resources>

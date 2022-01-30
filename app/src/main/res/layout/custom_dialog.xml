@@ -16,6 +16,18 @@
         android:textSize="@dimen/dialog_title_text_size"
         android:textStyle="bold" />
 
+
+    <TextView
+        android:id="@+id/dialog_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="This will be used for calculating saved amount"
+        android:textColor="@color/colorLightGray"
+        android:visibility="gone"
+        />
+
     <EditText
         android:id="@+id/tid_et"
         android:layout_width="match_parent"

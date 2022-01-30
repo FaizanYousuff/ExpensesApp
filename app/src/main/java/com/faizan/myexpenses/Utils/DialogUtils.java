@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.InputFilter;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,6 +18,7 @@ import com.faizan.myexpenses.DataLayer.model.DetailOtherExpense;
 import com.faizan.myexpenses.DataLayer.model.Expense;
 import com.faizan.myexpenses.DataLayer.model.OtherExpense;
 import com.faizan.myexpenses.R;
+import com.faizan.myexpenses.logger.Logger;
 import com.faizan.myexpenses.presentation.listener.DialogListener;
 
 import java.text.SimpleDateFormat;
@@ -36,7 +39,16 @@ public class DialogUtils {
         return instance;
     }
 
-    public void showPasswordDialog(final DialogListener listener) {
+    public void showPasswordDialog(final DialogListener listener, boolean isUpdatePassword) {
+        // No old password
+        if(isUpdatePassword && TextUtils.isEmpty(PreferenceHelper.getInstance(ContextProvider.getInstance().getActivity()).getString(Constants.PASSWORD_FOR_DELETING,""))){
+            listener.okPressed();
+            return;
+        }
+        if(!isUpdatePassword && !PreferenceHelper.getInstance(ContextProvider.getInstance().getActivity()).getBoolean(Constants.ENABLE_PASSWORD_FOR_DELETING,false)){
+            listener.okPressed();
+            return;
+        }
         dialog = new Dialog(ContextProvider.getInstance().getActivity());
         dialog.setContentView(R.layout.custom_dialog);
         dialog.setCancelable(false);
@@ -49,14 +61,53 @@ public class DialogUtils {
         pwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
         final TextView title = dialog.findViewById(R.id.dialog_title);
         title.setText("Enter Password");
+        if(isUpdatePassword){
+            title.setText("Enter Old Password");
+        }
         dialog.findViewById(R.id.btn_dialog_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (pwd.getText().toString().trim().length() != 4) {
                     pwd.setError("Password  should be 4 characters only");
-                } else if (!pwd.getText().toString().trim().equals(PASSWORD)) {
+                } else if (!(pwd.getText().toString().trim().equals(PASSWORD) ||
+                        pwd.getText().toString().trim().equals(PreferenceHelper.getInstance(ContextProvider.getInstance().getActivity()).getString(Constants.PASSWORD_FOR_DELETING,PASSWORD)))) {
                     pwd.setError("Please enter valid password");
                 } else {
+                    dialog.dismiss();
+                    listener.okPressed();
+                }
+            }
+        });
+
+        dialog.findViewById(R.id.btn_dialog_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.cancelPressed();
+                dialog.dismiss();
+            }
+        });
+    }
+
+    public void setPasswordDialog(final DialogListener listener) {
+        dialog = new Dialog(ContextProvider.getInstance().getActivity());
+        dialog.setContentView(R.layout.custom_dialog);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        int width = ContextProvider.getInstance().getActivity().getResources().getDisplayMetrics().widthPixels;
+        dialog.getWindow().setLayout((6 * width) / 7, LinearLayout.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
+        final EditText pwd = dialog.findViewById(R.id.tid_et);
+        pwd.setFilters(new InputFilter[]{new InputFilter.LengthFilter(4)});
+        final TextView title = dialog.findViewById(R.id.dialog_title);
+        title.setText("Enter New Password");
+        dialog.findViewById(R.id.btn_dialog_ok).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (pwd.getText().toString().trim().length() != 4) {
+                    pwd.setError("Password  should be 4 characters only");
+                } else {
+                    PreferenceHelper.getInstance(ContextProvider.getInstance().getActivity()).edit().putString(Constants.PASSWORD_FOR_DELETING,pwd.getText().toString().trim()).apply();
                     dialog.dismiss();
                     listener.okPressed();
                 }
@@ -83,15 +134,24 @@ public class DialogUtils {
 
         final EditText pwd = dialog.findViewById(R.id.tid_et);
         final TextView title = dialog.findViewById(R.id.dialog_title);
-        title.setText("Enter Income");
+        title.setText("Enter Max Expense Amount");
+        dialog.findViewById(R.id.dialog_hint).setVisibility(View.VISIBLE);
+        pwd.setInputType(InputType.TYPE_CLASS_NUMBER);
         dialog.findViewById(R.id.btn_dialog_ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (pwd.getText().toString().trim().length() < 1) {
-                    pwd.setError("Please enter income ");
+                    pwd.setError("Please enter amount ");
                 } else {
-                    dialog.dismiss();
-                    listener.okPressed(pwd.getText().toString().trim());
+                    try {
+                        int amount = Integer.parseInt(pwd.getText().toString());
+                        listener.okPressed(pwd.getText().toString().trim());
+                        dialog.dismiss();
+
+                    } catch (Exception e){
+                        Logger.error("","Exception in parsing income amount "+e.getMessage());
+                        pwd.setError("Please enter valid amount ");
+                    }
                 }
             }
         });

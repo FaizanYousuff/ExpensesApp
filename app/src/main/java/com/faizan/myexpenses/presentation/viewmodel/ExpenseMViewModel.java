@@ -77,6 +77,7 @@ public class ExpenseMViewModel extends ViewModel {
 
             @Override
             public void onComplete() {
+                Toast.makeText(context, "Deleted Monthly Expense Record", Toast.LENGTH_SHORT).show();
                 Logger.debug(TAG, "  deleteExpenseM onComplete");
             }
 

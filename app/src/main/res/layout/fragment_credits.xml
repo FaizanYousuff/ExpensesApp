@@ -46,8 +46,8 @@
         tools:listitem="@layout/item_credits"
         android:layout_below="@id/text_pending_debit"
         android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
-        />
+        android:layout_marginEnd="5dp" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,8 +55,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_margin="32dp"
-        android:id="@+id/btn_add_credit"/>
-
-
+        android:id="@+id/btn_add_credit"
+        android:backgroundTint="@color/colorOrange"/>
 
 </RelativeLayout>

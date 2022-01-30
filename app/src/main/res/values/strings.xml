@@ -7,7 +7,7 @@
     <string name="enter_password_str">please enter password</string>
     <string name="monthly_expense_list">Monthly Expenses List</string>
     <string name="expense_of">Expense of</string>
-    <string name="summary"> Summary </string>
+    <string name="summary"> SUMMARY </string>
     <string name="amount">Amount</string>
     <string name="Rs">\u20B9 </string>
     <string name="description">Description : </string>
@@ -28,13 +28,16 @@
     <string name="credit_debit_list">Credit/Debit List</string>
     <string name="other_expense_list">Other Expense List</string>
 
-    <string name="menuItemsList">My Dashboard</string>
+    <string name="menuItemsList">Welcome</string>
 
     <!-- Other Expenses -->
     <string name="expense_name">Expense Name</string>
     <string name="spent_amt">Spent Amount</string>
     <string name="remaining_amt">Remaining Amount</string>
     <string name="expense_description">Expense Description</string>
+    <string name="enable_income_amount_masking">Enable Max Expense / Income Amount Masking</string>
+    <string name="settings">Settings</string>
+    <string name="passwords_for_deleting_records">Set Update/Passwords for deleting Records</string>
 
 
 </resources>

@@ -145,7 +145,7 @@ public class CreditsFragment extends Fragment {
                     public void cancelPressed() {
 
                     }
-                });
+                },false);
             }
         }).attachToRecyclerView(recyclerView);
 
